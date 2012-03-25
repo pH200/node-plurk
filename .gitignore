@@ -1,0 +1,13 @@
+# Vim
+.*.sw[a-z]
+*.un~i
+*~
+
+# OS X
+.DS_Store
+
+# nodejs npm modules
+/node_modules
+
+# project
+
