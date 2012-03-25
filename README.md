@@ -97,7 +97,7 @@ client.rq('Profile/getPublicProfile', {'user_id': "plurkapi"}, function(err, dat
  1. For callback: function (err, data) { ... }
  2. Error object (**err**, data) is returned by [node-oauth][oauth]. This is null if no error occurred.
  3. For data (err, **data**), if JSON.parse failed internally, **data** would be null if err was null.
- 4. And SyntaxError from JSON.parse would be catched and not being rethrowed.
+ 4. And SyntaxError from JSON.parse would be catched and not to be rethrown.
  5. Instead, this exception (SyntaxError) would be assigned to **err** if **err** was null.
  6. However, normally invalid JSON and **err** (400, 404, 500) are presenting simultaneously.
  7. If so, **err** is not null and won't be changed by the presence of SyntaxError.
