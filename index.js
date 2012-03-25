@@ -22,7 +22,7 @@ var clientOAuthGen = function (https, consumerKey, consumerSecret) {
 };
 
 // accessToken and accessToken are optional
-var Client = function (https,
+var PlurkClient = function (https,
                        consumerKey, consumerSecret,
                        accessToken, accessTokenSecret) {
     this.endpoint = "http://www.plurk.com/";
@@ -46,7 +46,7 @@ var Client = function (https,
 
 var getClient = function (json) {
     var data = JSON.parse(json);
-    return new Client(data.https,
+    return new PlurkClient(data.https,
                       data.consumerKey, data.consumerSecret,
                       data.accessToken, data.accessTokenSecret);
 }
@@ -77,14 +77,14 @@ module.exports.fromFileSync = function (filename, encoding) {
     return getClient(fs.readFileSync(filename, innerEnc));
 }
 
-Client.prototype.getAuthPage = function(requestToken) {
+PlurkClient.prototype.getAuthPage = function(requestToken) {
     return "http://www.plurk.com/OAuth/authorize?oauth_token=" + requestToken
 }
-Client.prototype.getAuthPageMobile = function(requestToken) {
+PlurkClient.prototype.getAuthPageMobile = function(requestToken) {
     return "http://www.plurk.com/m/authorize?oauth_token=" + requestToken
 }
 
-Client.prototype.join = function(path) {
+PlurkClient.prototype.join = function(path) {
     if (path.indexOf("/APP/") === 0) {
         return this.endpoint + path.substr(1);
     } else if (path.indexOf("APP/") === 0) {
@@ -144,14 +144,14 @@ var boundCometCb = function (cb, cometUrl) {
 }
 
 // rq(api, obj, function(err, data) [, accessToken, accessTokenSecret])
-Client.prototype.rq = function(api, obj, callback, accessToken, accessTokenSecret) {
+PlurkClient.prototype.rq = function(api, obj, callback, accessToken, accessTokenSecret) {
     var path = this.join(api);
     if (accessToken == null) accessToken = this.accessToken;
     if (accessTokenSecret == null) accessTokenSecret = this.accessTokenSecret;
     this.oAuth.post(path, accessToken, accessTokenSecret, obj, boundCb(callback));
 };
 
-Client.prototype.post = function(api, accessToken, accessTokenSecret, obj, callback) {
+PlurkClient.prototype.post = function(api, accessToken, accessTokenSecret, obj, callback) {
     var path = this.join(api);
     this.oAuth.post(path, accessToken, accessTokenSecret, obj, boundCb(callback));
 };
@@ -181,14 +181,14 @@ var pollComet = function (self, requestUrl, accessToken, accessTokenSecret, call
 }
 
 // startComet(function(err, data, cometUrl) [, accessToken, accessTokenSecret])
-Client.prototype.startComet = function(callback, accessToken, accessTokenSecret) {
+PlurkClient.prototype.startComet = function(callback, accessToken, accessTokenSecret) {
     if (accessToken == null) accessToken = this.accessToken;
     if (accessTokenSecret == null) accessTokenSecret = this.accessTokenSecret;
     startComet(this, accessToken, accessTokenSecret, callback);
 };
 
 // comet(cometUrl, function(err, data, cometUrl) [, accessToken, accessTokenSecret])
-Client.prototype.comet = function(cometUrl, callback, accessToken, accessTokenSecret) {
+PlurkClient.prototype.comet = function(cometUrl, callback, accessToken, accessTokenSecret) {
     if (accessToken == null) accessToken = this.accessToken;
     if (accessTokenSecret == null) accessTokenSecret = this.accessTokenSecret;
     pollComet(this, cometUrl, accessToken, accessTokenSecret, callback);
@@ -282,4 +282,4 @@ module.exports.base36 = base36;
 
 module.exports.urlMatch = urlMatch;
 
-module.exports.PlurkClient = Client;
+module.exports.PlurkClient = PlurkClient;
