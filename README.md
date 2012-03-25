@@ -1,6 +1,6 @@
 # node-plurk #
 
-Easy-to-use library for Plurk API 2.0. Parses JSON data automatically and handles comet channel.
+Easy-to-use library for [Plurk API 2.0][API]. Parses JSON data automatically and handles comet channel.
 
 ## Installation ##
 
@@ -76,7 +76,7 @@ See *examples/getPublicProfile.js* for example usage.
 
 ```javascript
 PlurkClient.prototype.rq = function(api, obj, callback [, accessToken, accessTokenSecret])
-// send obj as null if no parameter required.
+// pass null for obj argument if no parameter required by Plurk API.
 ```
 
 ```javascript
@@ -146,4 +146,5 @@ var userId = urlMatch.user('http://www.plurk.com/m/u/ChronoPlurk');
 var plurkId = urlMatch.plurk('http://www.plurk.com/m/p/foo3ly', true)
 ```
 
+[API]: http://www.plurk.com/API
 [1]: https://github.com/ciaranj/node-oauth
