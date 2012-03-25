@@ -68,7 +68,7 @@ PlurkClient.prototype.getRequestToken // alias: getOAuthRequestToken
 PlurkClient.prototype.getAccessToken // alias: getOAuthAccessToken
 ```
 
-These two methods are as same as methods on [@ciaranj/node-oauth][1].
+These two methods are as same as methods on [@ciaranj/node-oauth][oauth].
 
 ### Calling Plurk API ###
 
@@ -95,17 +95,19 @@ client.rq('Profile/getPublicProfile', {'user_id': "plurkapi"}, function(err, dat
 #### Note: #####
 
  1. For callback: function (err, data) { ... }
- 2. Error object (**err**, data) is returned by node-oauth. This is null if no error occurred.
+ 2. Error object (**err**, data) is returned by [node-oauth][oauth]. This is null if no error occurred.
  3. For data (err, **data**), if JSON.parse failed internally, **data** would be null if err was null.
  4. And SyntaxError from JSON.parse would be catched and not being rethrowed.
- 5. Instead, this exception (SyntaxError) would be assigned to **err** if err was null.
- 6. However, normally invalid JSON and err (400, 404, 500) are presenting simultaneously.
- 7. If so, err is not null and won't be changed by the presence of SyntaxError.
+ 5. Instead, this exception (SyntaxError) would be assigned to **err** if **err** was null.
+ 6. However, normally invalid JSON and **err** (400, 404, 500) are presenting simultaneously.
+ 7. If so, **err** is not null and won't be changed by the presence of SyntaxError.
 
 #### Short Version: ####
 
  - If you successfully called API. The function would automatically parse JSON for you.
  - On the other hand, if failed, err would be an object and the error JSON might not be parsed.
+
+## Helpers ##
 
 ### Interacting with Comet Channel ###
 
@@ -147,4 +149,4 @@ var plurkId = urlMatch.plurk('http://www.plurk.com/m/p/foo3ly', true)
 ```
 
 [API]: http://www.plurk.com/API
-[1]: https://github.com/ciaranj/node-oauth
+[oauth]: https://github.com/ciaranj/node-oauth
