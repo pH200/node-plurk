@@ -41,7 +41,7 @@ You can do this:
 ```javascript
 plurkClient.rq("Profile/getPublicProfile", {"user_id": "plurkapi"}, function (err, data) {
     if (err) return;
-    console.log(data)''
+    console.log(data);
 });
 ```
 
