@@ -82,9 +82,9 @@ Async read method is also available:
 
 ```javascript
 require('plurk').fromFile('config.json', function (err, client) {
-	if (!err) {
-		// ...
-	}
+    if (!err) {
+        // ...
+    }
 });
 ```
 
@@ -110,7 +110,7 @@ PlurkClient.prototype.rq = function(api, obj, callback [, accessToken, accessTok
 
 ```javascript
 client.rq('Profile/getPublicProfile', {'user_id': "plurkapi"}, function(err, data) {
-	if (!err) console.log(data);
+    if (!err) console.log(data);
 });
 ```
 
