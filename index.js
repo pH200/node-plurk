@@ -105,7 +105,11 @@ var boundCb = function (cb) {
         try {
             data = JSON.parse(json);
         } catch (e) { // JSON.parse throws SyntaxError.
-            cb(err, json);
+            if (err) {
+                cb(err, json);
+            } else {
+                cb({exception: e}, null);
+            }
             return;
         }
         cb(err, data);
