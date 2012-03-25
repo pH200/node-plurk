@@ -16,6 +16,35 @@ Easy-to-use library for [Plurk API 2.0][API]. Parses JSON data automatically and
  - Base36 converter for plurk_id in Plurk URL
  - Extract user\_id and plurk\_id from Plurk URL
 
+## QuickStart ##
+
+Instead of this:
+
+```javascript
+oauth.post("http://www.plurk.com/APP/Profile/getPublicProfile",
+           "ACCESS_TOKEN", "ACCESS_TOKEN_SECRET",
+           {"user_id": "plurkapi"},
+           function (err, json) {
+    if (err) return;
+    var data;
+    try {
+        data = JSON.parse(json);
+    } catch (e) {
+        return;
+    }
+    console.log(data);
+});
+```
+
+You can do this:
+
+```javascript
+plurkClient.rq("Profile/getPublicProfile", {"user_id": "plurkapi"}, function (err, data) {
+    if (err) return;
+    console.log(data)''
+});
+```
+
 ## Getting Started ##
 
 ### Initialize Client ###
