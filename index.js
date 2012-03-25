@@ -8,9 +8,9 @@ var OAuth = require('oauth').OAuth;
 
 var clientOAuthGen = function (https, consumerKey, consumerSecret) {
     var requestTokenUrl = https ? "https://www.plurk.com/OAuth/request_token"
-                             : "http://www.plurk.com/OAuth/request_token";
+                                : "http://www.plurk.com/OAuth/request_token";
     var accessTokenUrl = https ? "https://www.plurk.com/OAuth/access_token"
-                            : "http://www.plurk.com/OAuth/access_token";
+                               : "http://www.plurk.com/OAuth/access_token";
     return new OAuth(requestTokenUrl,
                      accessTokenUrl,
                      consumerKey,
@@ -23,8 +23,8 @@ var clientOAuthGen = function (https, consumerKey, consumerSecret) {
 
 // accessToken and accessToken are optional
 var PlurkClient = function (https,
-                       consumerKey, consumerSecret,
-                       accessToken, accessTokenSecret) {
+                            consumerKey, consumerSecret,
+                            accessToken, accessTokenSecret) {
     this.endpoint = "http://www.plurk.com/";
     this.oAuth = clientOAuthGen(https, consumerKey, consumerSecret);
 
@@ -47,8 +47,8 @@ var PlurkClient = function (https,
 var getClient = function (json) {
     var data = JSON.parse(json);
     return new PlurkClient(data.https,
-                      data.consumerKey, data.consumerSecret,
-                      data.accessToken, data.accessTokenSecret);
+                           data.consumerKey, data.consumerSecret,
+                           data.accessToken, data.accessTokenSecret);
 }
 
 // fromFile(filename, ['utf8'], function(err, client))
