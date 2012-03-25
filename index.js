@@ -127,7 +127,7 @@ var boundCometCb = function (cb, cometUrl) {
             return;
         }
         var onError = function () {
-            cb("missing new_offset", jsonP);
+            cb({error: "missing new_offset"}, jsonP);
         }
         var from = jsonP.indexOf('{');
         var to = jsonP.lastIndexOf('}') + 1;
