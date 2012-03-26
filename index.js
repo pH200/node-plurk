@@ -3,6 +3,7 @@
 
 var fs = require('fs');
 var urlparse = require('url').parse;
+var http = require('http');
 
 var OAuth = require('oauth').OAuth;
 
@@ -166,22 +167,31 @@ var startComet = function (self, accessToken, accessTokenSecret, callback) {
             callback(err, data);
         } else {
             var requestUrl = data["comet_server"];
-            var cometUrl = /[^?]+/.exec(requestUrl) + "?channel=" + data["channel_name"];
-            self.oAuth.get(requestUrl,
-                           accessToken,
-                           accessTokenSecret,
-                           boundCometCb(callback, cometUrl));
+            pollComet(requestUrl, callback);
         }
     });
 }
 
-var pollComet = function (self, requestUrl, accessToken, accessTokenSecret, callback) {
-    var channel = urlparse(requestUrl, true).query["channel"];
+var pollComet = function (requestUrl, callback) {
+    var TIMEOUT = 80000; // 80000ms is 80secs
+
+    var parsedUrl = urlparse(requestUrl, true);
+    parsedUrl.method = "GET";
+
+    var channel = parsedUrl.query["channel"];
     var cometUrl = /[^?]+/.exec(requestUrl) + "?channel=" + channel;
-    self.oAuth.get(requestUrl,
-                   accessToken,
-                   accessTokenSecret,
-                   boundCometCb(callback, cometUrl));
+
+    var request = http.request(parsedUrl, function (res) {
+        res.setEncoding('utf8');
+        res.on('data', function (chunk) {
+            boundCometCb(callback, cometUrl)(null, chunk);
+        });
+    });
+    request.setTimeout(TIMEOUT);
+    request.on('error', function (e) {
+        boundCometCb(callback, cometUrl)(e);
+    });
+    request.end();
 }
 
 // startComet(function(err, data, cometUrl) [, accessToken, accessTokenSecret])
@@ -191,11 +201,9 @@ PlurkClient.prototype.startComet = function(callback, accessToken, accessTokenSe
     startComet(this, accessToken, accessTokenSecret, callback);
 };
 
-// comet(cometUrl, function(err, data, cometUrl) [, accessToken, accessTokenSecret])
-PlurkClient.prototype.comet = function(cometUrl, callback, accessToken, accessTokenSecret) {
-    if (accessToken == null) accessToken = this.accessToken;
-    if (accessTokenSecret == null) accessTokenSecret = this.accessTokenSecret;
-    pollComet(this, cometUrl, accessToken, accessTokenSecret, callback);
+// comet(cometUrl, function(err, data, cometUrl))
+PlurkClient.prototype.comet = function(cometUrl, callback) {
+    pollComet(cometUrl, callback);
 };
 
 var limitedTo = {}
