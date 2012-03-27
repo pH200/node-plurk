@@ -142,7 +142,9 @@ client.rq('Profile/getPublicProfile', {'user_id': "plurkapi"}, function(err, dat
 
 Helper functions were created for handling data of comet API.
 
-See *examples/getUserChannel.js* for example usage.
+See *examples/basic_comet.js* for example usage.
+
+Also check out *examples/robot.js* which demonstrates how to make a simple Plurk robot.
 
 ### Parsing Plurk limited_to ###
 
@@ -173,8 +175,10 @@ Mobile version of URL works, too.
 
 ```javascript
 var userId = urlMatch.user('http://www.plurk.com/m/u/ChronoPlurk');
+// returns "ChronoPlurk"
 
 var plurkId = urlMatch.plurk('http://www.plurk.com/m/p/foo3ly', true)
+// returns 948427846
 ```
 
 [API]: http://www.plurk.com/API
