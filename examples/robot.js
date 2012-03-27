@@ -1,5 +1,5 @@
 /* This robot response reversed content of its friends' plurks.
- * Including your own plurk.
+ * Including its own plurk.
  */
 
 var plurk = require('../index');
