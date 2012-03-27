@@ -1,6 +1,6 @@
 var plurk = require('../index');
 
-var client = plurk.fromFileSync("test.json")
+var client = plurk.fromFileSync("test.json");
 
 client.startComet(function (err, data, cometUrl) {
     if (err) {
@@ -21,7 +21,7 @@ client.startComet(function (err, data, cometUrl) {
             console.log("Next: " + newUrl);
             console.log(data);
             console.log();
-            rec(newUrl)
+            rec(newUrl);
         });
     };
     rec(cometUrl);
