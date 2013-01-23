@@ -1,7 +1,7 @@
 {
     "name": "plurk",
     "id": "plurk",
-    "version": "0.4.3",
+    "version": "0.5.1",
     "description": "Easy-to-use library for Plurk API 2.0. Parses JSON data automatically and handles comet channel.",
     "keywords": ["plurk", "api", "oauth"],
     "author": "pH.minamo <ph.minamo@cytisan.com>",
@@ -12,7 +12,7 @@
         "web": "https://github.com/pH-minamo/node-plurk"
     },
     "dependencies": {
-        "oauth": "0.9.6"
+        "oauth": "0.9.8"
     },
     "main": "index.js",
     "licenses": [{
