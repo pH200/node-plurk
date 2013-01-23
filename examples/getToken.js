@@ -1,8 +1,10 @@
+"use strict";
+
 var plurk = require('../index');
 var rl = require('readline');
 var rlInterface = rl.createInterface(process.stdin, process.stdout, null);
 
-var client = plurk.fromFileSync("test.json")
+var client = plurk.fromFileSync("test.json");
 
 client.getRequestToken(function(err, token, tokenSecret) {
     console.log("requestToken: " + token);

@@ -1,3 +1,5 @@
+"use strict";
+
 var plurk = require('../index');
 
 var client = plurk.fromFileSync("test.json");

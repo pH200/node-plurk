@@ -6,5 +6,6 @@
 	"laxcomma": true,
 	"eqeqeq": true,
 	"eqnull": true,
-	"undef": true
+	"undef": true,
+	"sub": true
 }
