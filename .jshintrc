@@ -1,0 +1,10 @@
+{
+	"node": true,
+
+	"strict": true,
+	"shadow": true,
+	"laxcomma": true,
+	"eqeqeq": true,
+	"eqnull": true,
+	"undef": true
+}
